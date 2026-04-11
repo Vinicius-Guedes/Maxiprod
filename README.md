@@ -3,6 +3,7 @@
 Este repositório contém a implementação de um **sistema completo de controle de gastos residenciais**, estruturado em camadas bem definidas (**Database, API e UI**), com foco em boas práticas de arquitetura, organização de código e separação de responsabilidades.
 
 🔗 **Demo online:** https://maxiprod.viniciusguedes.cloud
+
 ---
 
 ## 🎯 Objetivo do Projeto
