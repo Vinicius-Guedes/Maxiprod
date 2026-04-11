@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
+import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
 import api, { Pessoa, Categoria, Transacao, TotalPessoa, TotalCategoria } from '../api/axios'
 
 interface AppState {

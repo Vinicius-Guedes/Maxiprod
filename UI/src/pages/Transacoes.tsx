@@ -3,7 +3,7 @@ import { Box, Button, Typography, IconButton, Chip } from '@mui/material'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import { Delete, Add } from '@mui/icons-material'
 import { useAppContext } from '../contexts/AppContext'
-import api, { Transacao, TIPO_LABELS } from '../api/axios'
+import api, { TIPO_LABELS } from '../api/axios'
 import TransacaoDialog from '../components/TransacaoDialog'
 
 const TIPO_COLORS: Record<number, 'success' | 'error'> = { 1: 'success', 2: 'error' }
@@ -11,9 +11,7 @@ const TIPO_COLORS: Record<number, 'success' | 'error'> = { 1: 'success', 2: 'err
 export default function Transacoes() {
   const { transacoes, pessoas, categorias, fetchTransacoes, loading } = useAppContext()
   const [dialogOpen, setDialogOpen] = useState(false)
-  const [selected, setSelected] = useState<Transacao | null>(null)
-
-  const handleNew = () => { setSelected(null); setDialogOpen(true) }
+  const handleNew = () => { setDialogOpen(true) }
   const handleDelete = async (id: number) => {
     await api.delete(`/transacoes/${id}`)
     await fetchTransacoes()
@@ -57,7 +55,7 @@ export default function Transacoes() {
         <Button variant="contained" startIcon={<Add />} onClick={handleNew}>Nova Transação</Button>
       </Box>
       <DataGrid rows={transacoes} columns={columns} loading={loading} autoHeight disableRowSelectionOnClick />
-      <TransacaoDialog open={dialogOpen} onClose={() => setDialogOpen(false)} transacao={selected} />
+      <TransacaoDialog open={dialogOpen} onClose={() => setDialogOpen(false)} transacao={null} />
     </Box>
   )
 }
