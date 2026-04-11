@@ -1,6 +1,5 @@
 import { Box, Toolbar } from '@mui/material'
 import { Routes, Route, Navigate } from 'react-router-dom'
-import Sidebar, { DRAWER_WIDTH } from './components/Sidebar'
 import Pessoas from './pages/Pessoas'
 import Categorias from './pages/Categorias'
 import Transacoes from './pages/Transacoes'
