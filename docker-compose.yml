@@ -24,6 +24,8 @@ services:
       - web
     depends_on:
       - maxiprod-db
+    expose:
+      - "5000"
 
   maxiprod-ui:
     build: ./UI
@@ -40,6 +42,9 @@ services:
       - "traefik.http.routers.maxiprod.rule=Host(`maxiprod.viniciusguedes.cloud`)"
       - "traefik.http.routers.maxiprod.entrypoints=websecure"
       - "traefik.http.routers.maxiprod.tls.certresolver=letsencrypt"
+
+      # Service
+      - "traefik.http.services.maxiprod.loadbalancer.server.port=80"
 
 networks:
   web:
