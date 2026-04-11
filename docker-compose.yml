@@ -1,0 +1,49 @@
+#version: "3.9"
+
+services:
+  maxiprod-db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: maxiprod-db
+    restart: unless-stopped
+    networks:
+      - web
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Maxiprod@2026"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+      - ./Database:/docker-entrypoint-initdb.d
+    ports:
+      - "1433:1433"
+
+  maxiprod-api:
+    build: ./API
+    container_name: maxiprod-api
+    restart: unless-stopped
+    networks:
+      - web
+    depends_on:
+      - maxiprod-db
+
+  maxiprod-ui:
+    build: ./UI
+    container_name: maxiprod-ui
+    restart: unless-stopped
+    networks:
+      - web
+    depends_on:
+      - maxiprod-api
+    labels:
+      - "traefik.enable=true"
+
+      # Router
+      - "traefik.http.routers.maxiprod.rule=Host(`maxiprod.viniciusguedes.cloud`)"
+      - "traefik.http.routers.maxiprod.entrypoints=websecure"
+      - "traefik.http.routers.maxiprod.tls.certresolver=letsencrypt"
+
+networks:
+  web:
+    external: true
+
+volumes:
+  sqlserver_data:
