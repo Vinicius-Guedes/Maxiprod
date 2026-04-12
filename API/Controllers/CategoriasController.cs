@@ -10,8 +10,13 @@ namespace Maxiprod.Api.Controllers;
 public class CategoriasController : ControllerBase
 {
     private readonly CategoriaRepository _repo;
+    private readonly TransacaoRepository _transacaoRepo;
 
-    public CategoriasController(IDbConnection db) => _repo = new CategoriaRepository(db);
+    public CategoriasController(IDbConnection db)
+    {
+        _repo = new CategoriaRepository(db);
+        _transacaoRepo = new TransacaoRepository(db);
+    }
 
     [HttpGet]
     public async Task<IActionResult> GetAll() =>
@@ -50,6 +55,11 @@ public class CategoriasController : ControllerBase
     {
         if (await _repo.GetByIdAsync(id) is null)
             return NotFound();
+
+        var transacoes = await _transacaoRepo.GetAllAsync();
+        if (transacoes.Any(t => t.CategoriaId == id))
+            return BadRequest("Não é possível excluir categoria com transações vinculadas.");
+
         await _repo.DeleteAsync(id);
         return NoContent();
     }
