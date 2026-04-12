@@ -5,7 +5,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<IDbConnection>(_ =>
-    new SqlConnection(builder.Configuration.GetConnectionString("DefaultConnection")));
+{
+    var conn = new SqlConnection(builder.Configuration.GetConnectionString("DefaultConnection"));
+    conn.Open();
+    return conn;
+});
 
 builder.Services.AddCors(options =>
 {
