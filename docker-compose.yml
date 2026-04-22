@@ -9,7 +9,7 @@ services:
       - web
     environment:
       ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: "Maxiprod@2026"
+      MSSQL_SA_PASSWORD: ${SENHA_DB}
     volumes:
       - sqlserver_data:/var/opt/mssql
       - ./Database:/docker-entrypoint-initdb.d
