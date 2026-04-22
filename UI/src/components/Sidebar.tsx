@@ -1,5 +1,5 @@
 import { Drawer, List, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography, Box } from '@mui/material'
-import { People, Category, Receipt, BarChart } from '@mui/icons-material'
+import { People, Category, Receipt, BarChart, School } from '@mui/icons-material'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 const DRAWER_WIDTH = 240
@@ -8,6 +8,7 @@ const menuItems = [
   { text: 'Pessoas', icon: <People />, path: '/pessoas' },
   { text: 'Categorias', icon: <Category />, path: '/categorias' },
   { text: 'Transações', icon: <Receipt />, path: '/transacoes' },
+  { text: 'Professores', icon: <School />, path: '/professores' },
   { text: 'Totais por Pessoa', icon: <BarChart />, path: '/totais/pessoas' },
   { text: 'Totais por Categoria', icon: <BarChart />, path: '/totais/categorias' },
 ]

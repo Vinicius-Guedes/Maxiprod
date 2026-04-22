@@ -6,6 +6,7 @@ import Categorias from './pages/Categorias'
 import Transacoes from './pages/Transacoes'
 import TotaisPessoa from './pages/TotaisPessoa'
 import TotaisCategoria from './pages/TotaisCategoria'
+import Professores from './pages/Professores'
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/pessoas" element={<Pessoas />} />
           <Route path="/categorias" element={<Categorias />} />
           <Route path="/transacoes" element={<Transacoes />} />
+          <Route path="/professores" element={<Professores />} />
           <Route path="/totais/pessoas" element={<TotaisPessoa />} />
           <Route path="/totais/categorias" element={<TotaisCategoria />} />
           <Route path="*" element={<Navigate to="/pessoas" replace />} />

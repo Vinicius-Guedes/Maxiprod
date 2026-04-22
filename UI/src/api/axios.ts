@@ -29,6 +29,15 @@ export interface Transacao {
   pessoaId: number
 }
 
+export interface Professor {
+  id: number
+  nome: string
+  email: string
+  telefone: string
+  cpf: string
+  disciplina: string
+}
+
 export interface TotalPessoa {
   id: number
   nome: string

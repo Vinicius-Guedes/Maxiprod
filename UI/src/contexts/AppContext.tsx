@@ -1,16 +1,18 @@
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
-import api, { Pessoa, Categoria, Transacao, TotalPessoa, TotalCategoria } from '../api/axios'
+import api, { Pessoa, Categoria, Transacao, Professor, TotalPessoa, TotalCategoria } from '../api/axios'
 
 interface AppState {
   pessoas: Pessoa[]
   categorias: Categoria[]
   transacoes: Transacao[]
+  professores: Professor[]
   totaisPessoa: TotalPessoa[]
   totaisCategoria: TotalCategoria[]
   loading: boolean
   fetchPessoas: () => Promise<void>
   fetchCategorias: () => Promise<void>
   fetchTransacoes: () => Promise<void>
+  fetchProfessores: () => Promise<void>
   fetchTotaisPessoa: () => Promise<void>
   fetchTotaisCategoria: () => Promise<void>
 }
@@ -21,6 +23,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [pessoas, setPessoas] = useState<Pessoa[]>([])
   const [categorias, setCategorias] = useState<Categoria[]>([])
   const [transacoes, setTransacoes] = useState<Transacao[]>([])
+  const [professores, setProfessores] = useState<Professor[]>([])
   const [totaisPessoa, setTotaisPessoa] = useState<TotalPessoa[]>([])
   const [totaisCategoria, setTotaisCategoria] = useState<TotalCategoria[]>([])
   const [loading, setLoading] = useState(true)
@@ -40,6 +43,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setTransacoes(res.data)
   }, [])
 
+  const fetchProfessores = useCallback(async () => {
+    const res = await api.get<Professor[]>('/professores')
+    setProfessores(res.data)
+  }, [])
+
   const fetchTotaisPessoa = useCallback(async () => {
     const res = await api.get<TotalPessoa[]>('/totais/pessoas')
     setTotaisPessoa(res.data)
@@ -51,14 +59,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, [])
 
   useEffect(() => {
-    Promise.all([fetchPessoas(), fetchCategorias(), fetchTransacoes()])
+    Promise.all([fetchPessoas(), fetchCategorias(), fetchTransacoes(), fetchProfessores()])
       .finally(() => setLoading(false))
-  }, [fetchPessoas, fetchCategorias, fetchTransacoes])
+  }, [fetchPessoas, fetchCategorias, fetchTransacoes, fetchProfessores])
 
   return (
     <AppContext.Provider value={{
-      pessoas, categorias, transacoes, totaisPessoa, totaisCategoria, loading,
-      fetchPessoas, fetchCategorias, fetchTransacoes, fetchTotaisPessoa, fetchTotaisCategoria,
+      pessoas, categorias, transacoes, professores, totaisPessoa, totaisCategoria, loading,
+      fetchPessoas, fetchCategorias, fetchTransacoes, fetchProfessores, fetchTotaisPessoa, fetchTotaisCategoria,
     }}>
       {children}
     </AppContext.Provider>

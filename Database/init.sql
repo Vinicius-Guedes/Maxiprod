@@ -62,6 +62,27 @@ CREATE TABLE Transacoes (
 GO
 
 -- -------------------------------------------
+-- Professores
+-- -------------------------------------------
+CREATE TABLE Professores (
+    Id          INT           IDENTITY(1,1) PRIMARY KEY,
+    Nome        NVARCHAR(200) NOT NULL,
+    Email       NVARCHAR(200) NOT NULL,
+    Telefone    NVARCHAR(20)  NOT NULL,
+    Cpf         NVARCHAR(14)  NOT NULL,
+    Disciplina  NVARCHAR(200) NOT NULL,
+
+    CONSTRAINT CK_Professores_Nome_NotEmpty CHECK (LEN(LTRIM(Nome)) > 0),
+    CONSTRAINT CK_Professores_Email_NotEmpty CHECK (LEN(LTRIM(Email)) > 0),
+    CONSTRAINT CK_Professores_Telefone_NotEmpty CHECK (LEN(LTRIM(Telefone)) > 0),
+    CONSTRAINT CK_Professores_Cpf_NotEmpty CHECK (LEN(LTRIM(Cpf)) > 0),
+    CONSTRAINT CK_Professores_Disciplina_NotEmpty CHECK (LEN(LTRIM(Disciplina)) > 0),
+    CONSTRAINT UQ_Professores_Email UNIQUE (Email),
+    CONSTRAINT UQ_Professores_Cpf UNIQUE (Cpf)
+);
+GO
+
+-- -------------------------------------------
 -- View: Totais por Pessoa
 -- -------------------------------------------
 CREATE VIEW vw_TotaisPorPessoa AS
