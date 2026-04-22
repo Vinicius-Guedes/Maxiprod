@@ -1,4 +1,4 @@
-import { Box, Toolbar } from '@mui/material'
+import { Box, Toolbar, Typography } from '@mui/material'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Sidebar from './components/Sidebar'
 import Pessoas from './pages/Pessoas'
@@ -22,6 +22,18 @@ export default function App() {
           <Route path="*" element={<Navigate to="/pessoas" replace />} />
         </Routes>
       </Box>
+      <Typography
+        variant="caption"
+        sx={{
+          position: 'fixed',
+          bottom: 8,
+          right: 16,
+          opacity: 0.5,
+          userSelect: 'none',
+        }}
+      >
+        Maxiprod
+      </Typography>
     </Box>
   )
 }
