@@ -19,7 +19,7 @@ public class CategoriaRepository
 
     public async Task<int> CreateAsync(Categoria categoria) =>
         await _db.ExecuteScalarAsync<int>(
-            "INSERT INTO Categorias (Descricao, Finalidade) VALUES (@Descricao, @Finalidade); SELECT CAST(SCOPE_IDENTITY() AS INT);",
+            "INSERT INTO Categorias (Descricao, Finalidade) VALUES (@Descricao, @Finalidade); SELECT last_insert_rowid();",
             new { categoria.Descricao, categoria.Finalidade });
 
     public async Task UpdateAsync(Categoria categoria) =>

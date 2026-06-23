@@ -8,6 +8,7 @@ RUN dotnet publish -c Release -o /app
 
 # Serve
 FROM mcr.microsoft.com/dotnet/aspnet:9.0
+RUN mkdir -p /data
 WORKDIR /app
 COPY --from=build /app .
 ENV ASPNETCORE_URLS=http://+:5000

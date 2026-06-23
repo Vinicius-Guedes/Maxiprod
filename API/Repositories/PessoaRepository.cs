@@ -19,7 +19,7 @@ public class PessoaRepository
 
     public async Task<int> CreateAsync(Pessoa pessoa) =>
         await _db.ExecuteScalarAsync<int>(
-            "INSERT INTO Pessoas (Nome, Idade) VALUES (@Nome, @Idade); SELECT CAST(SCOPE_IDENTITY() AS INT);",
+            "INSERT INTO Pessoas (Nome, Idade) VALUES (@Nome, @Idade); SELECT last_insert_rowid();",
             new { pessoa.Nome, pessoa.Idade });
 
     public async Task UpdateAsync(Pessoa pessoa) =>

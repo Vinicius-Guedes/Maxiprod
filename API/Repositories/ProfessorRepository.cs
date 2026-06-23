@@ -29,7 +29,7 @@ public class ProfessorRepository
 
     public async Task<int> CreateAsync(Professor professor) =>
         await _db.ExecuteScalarAsync<int>(
-            "INSERT INTO Professores (Nome, Email, Telefone, Cpf, Disciplina) VALUES (@Nome, @Email, @Telefone, @Cpf, @Disciplina); SELECT CAST(SCOPE_IDENTITY() AS INT);",
+            "INSERT INTO Professores (Nome, Email, Telefone, Cpf, Disciplina) VALUES (@Nome, @Email, @Telefone, @Cpf, @Disciplina); SELECT last_insert_rowid();",
             new { professor.Nome, professor.Email, professor.Telefone, professor.Cpf, professor.Disciplina });
 
     public async Task UpdateAsync(Professor professor) =>

@@ -1,29 +1,15 @@
 #version: "3.9"
 
 services:
-  maxiprod-db:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: maxiprod-db
-    restart: unless-stopped
-    networks:
-      - web
-    environment:
-      ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: ${SENHA_DB}
-    volumes:
-      - sqlserver_data:/var/opt/mssql
-      - ./Database:/docker-entrypoint-initdb.d
-    ports:
-      - "1433:1433"
-
   maxiprod-api:
     build: ./API
     container_name: maxiprod-api
     restart: unless-stopped
     networks:
       - web
-    depends_on:
-      - maxiprod-db
+    volumes:
+      - sqlite_data:/data
+      - ./Database/init.sql:/app/init.sql:ro
     expose:
       - "5000"
 
@@ -57,4 +43,4 @@ networks:
     external: true
 
 volumes:
-  sqlserver_data:
+  sqlite_data:

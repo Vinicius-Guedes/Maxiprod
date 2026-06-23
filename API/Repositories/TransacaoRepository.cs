@@ -18,7 +18,7 @@ public class TransacaoRepository
         await _db.ExecuteScalarAsync<int>(
             @"INSERT INTO Transacoes (Descricao, Valor, Tipo, CategoriaId, PessoaId)
               VALUES (@Descricao, @Valor, @Tipo, @CategoriaId, @PessoaId);
-              SELECT CAST(SCOPE_IDENTITY() AS INT);",
+              SELECT last_insert_rowid();",
             new { transacao.Descricao, transacao.Valor, transacao.Tipo, transacao.CategoriaId, transacao.PessoaId });
 
     public async Task DeleteAsync(int id) =>
